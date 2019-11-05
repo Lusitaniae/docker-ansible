@@ -13,13 +13,13 @@ LABEL maintainer="will@willhallonline.co.uk" \
     org.label-schema.docker.cmd="docker run --rm -it -v $(pwd):/ansible -v ~/.ssh/id_rsa:/root/id_rsa willhallonline/ansible:2.7-ubuntu-18.04"
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
-    apt-get install -y python-pip sshpass git curl openssh-client && \
+    apt-get install -y python-pip python3-pip sshpass git curl openssh-client && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get clean
     
 RUN python2 -m pip install --upgrade pip cffi && \
     pip install ansible==2.7.14 && \
-    pip install mitogen ansible-lint && \
+    pip install mitogen ansible-lint boto boto3 botocore && \
     pip install --upgrade pywinrm
 
 RUN mkdir /ansible && \
